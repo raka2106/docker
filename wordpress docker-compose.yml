@@ -1,0 +1,27 @@
+wordpress-db:
+    networks: 
+      - wordpress-net
+    image: mysql
+    restart: always
+    ports: 
+      - 3306:3306
+    environment: 
+      MYSQL_DATABASE: mysql
+      MYSQL_USER: raka
+      MYSQL_PASSWORD: raka
+      MYSQL_RANDOM_ROOT_PASSWORD: '1'
+    volumes: 
+      - wordpress-db-datastore:/var/lib/mysql  
+  
+  wordpress:
+    image: wordpress
+    networks: 
+      - wordpress-net
+    restart: always
+    ports: 
+      - 9090:80
+    environment: 
+      WORDPRESS_DB_HOST: mysql
+      WORDPRESS_DB_USER: kambing
+      WORDPRESS_DB_PASSWORD: kambing
+      WORDPRESS_DB_NAME: wordpress-db
